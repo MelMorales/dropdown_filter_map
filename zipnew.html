@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <script src="origData.json"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["map"]});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      //data is formatted for google map
+      function drawChart() {
+     
+        
+       
+        //writes origData to html for initial view, line by line with breaks
+        //for(i=1; i<origData.length; i++) {
+        //document.getElementById("answer").innerHTML += origData[i][2] + ", " + origData[i][3] + "<br />";
+        //}
+        
+        // creates visualization using newData array
+        var data = google.visualization.arrayToDataTable(origData);
+        
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(data, {showTip: true});
+         
+        //form to change based on dropdown
+        document.getElementById("form1").onchange=function() {  
+        selection = document.getElementById("thedropdown").value;
+        
+        //if no selection, hides map, asks to select
+        if(selection == "0") {
+        document.getElementById("map_div").style.visibility = "hidden";
+        document.getElementById("answer").innerHTML = "Select a Picnic option";
+        }
+        
+        // if there is a selection
+        else {
+        //start a new array to include only data that is selected
+        var newData = [['Lat', 'Long', 'Name', 'Zip']];
+        
+        //loop to go match selection and create a new array
+        for(i=1;i<origData.length; i++) {
+            if(origData[i][3] == selection){
+            // only data that meets the selection criteria goes into newData array
+            newData.push(origData[i]);
+            
+            }//end if
+            
+            
+        }//end for
+        
+        //clears out answer div in html
+        document.getElementById("map_div").style.visibility = "visible";
+        document.getElementById("answer").innerHTML = " ";
+        
+        //loop that writes the data in newData, line by line with breaks.
+        //for(i=1; i<newData.length; i++) {
+        //document.getElementById("answer").innerHTML += newData[i][2] + ", " + newData[i][3] + "<br />";
+        //}
+       
+        // creates visualization using newData array
+        var data = google.visualization.arrayToDataTable(newData);
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(data, {showTip: true});
+       }
+      }
+      }
+    </script>
+  </head>
+
+  <body>
+  <p>Search for trailheads with picnic locations.</p>
+  <form id="form1">
+  <select id="thedropdown">
+  <option value="0";>Choose Zip:</option>
+  <option value="78023">78023</option>
+  <option value="78109">78109</option>
+  <option value="78112">78112</option>
+  <option value="78154">78154</option>
+  <option value="78201">78201</option>
+  <option value="78202">78202</option>
+  <option value="78203">78203</option>
+  <option value="78204">78204</option>
+  <option value="78205">78205</option>
+  <option value="78207">78207</option>
+  <option value="78208">78208</option>
+  <option value="78209">78209</option>
+  <option value="78210">78210</option>
+  <option value="78211">78211</option>
+  <option value="78212">78212</option>
+  <option value="78213">78213</option>
+  <option value="78214">78214</option>
+  <option value="78215">78215</option>
+  <option value="78216">78216</option>
+  <option value="78217">78217</option>
+  <option value="78218">78218</option>
+  <option value="78219">78219</option>
+  <option value="78220">78220</option>
+  <option value="78221">78221</option>
+  <option value="78222">78222</option>
+  <option value="78223">78223</option>
+  <option value="78224">78224</option>
+  <option value="78225">78225</option>
+  <option value="78226">78226</option>
+  <option value="78227">78227</option>
+  <option value="78228">78228</option>
+  <option value="78229">78229</option>
+  <option value="78230">78230</option>
+  <option value="78231">78231</option>
+  <option value="78232">78232</option>
+  <option value="78233">78233</option>
+  <option value="78234">78234</option>
+  <option value="78237">78237</option>
+  <option value="78238">78238</option>
+  <option value="78239">78239</option>
+  <option value="78240">78240</option>
+  <option value="78242">78242</option>
+  <option value="78244">78244</option>
+  <option value="78245">78245</option>
+  <option value="78247">78247</option>
+  <option value="78248">78248</option>
+  <option value="78249">78249</option>
+  <option value="78250">78250</option>
+  <option value="78251">78251</option>
+  <option value="78252">78252</option>
+  <option value="78253">78253</option>
+  <option value="78254">78254</option>
+  <option value="78255">78255</option>
+  <option value="78257">78257</option>
+  <option value="78258">78258</option>
+  <option value="78259">78259</option>
+  <option value="78260">78260</option>
+  <option value="78263">78263</option>
+  <option value="78264">78264</option>
+  <option value="78266">78266</option>
+</select>
+
+</form>
+    <div id="map_div" style="width: 400px; height: 300px"></div>
+    <div id="answer"></div>
+    <p>Click on the pin to see the church name.</p>
+  </body>
+</html>
+
